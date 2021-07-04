@@ -1,17 +1,19 @@
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
-import FlatList from 'src/components/flatlist';
+import FlatList from './flatlist';
 import flats from '../data/flats';
 
 class App extends Component {
   render() {
+    const allFlats = flats;
+    console.log(allFlats);
     return (
       <div>
-        <div>
-          <FlatList flats={flats} />
+        <div className="flat-list">
+          <FlatList flats={allFlats} />
         </div>
-        <div>
-          <GoogleMapReact />
+        <div className="map-container">
+          {/* <GoogleMapReact /> */}
         </div>
       </div>
     );
