@@ -1,7 +1,9 @@
+/* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
+import GoogleMapReact from 'google-map-react';
 import FlatList from './flatlist';
-import SimpleMap from './simplemap';
+import Marker from './simplemap';
 import flats from '../data/flats';
 
 class App extends Component {
@@ -16,6 +18,7 @@ class App extends Component {
     this.updateActive = this.updateActiveObject;
   }
 
+
   updateActiveObject = (lat, lng) => {
     this.setState({
       activeObject: {
@@ -26,17 +29,25 @@ class App extends Component {
     console.log(`Updated the active object. Lat is ${this.state.activeObject.lat} and lng is ${this.state.activeObject.lng}`);
   }
 
+  center() {
+    return {
+      lat: this.state.activeObject.lat,
+      lng: this.state.activeObject.lng
+    };
+  }
+
   render() {
     const allFlats = flats;
-    const activeObject = this.state.activeObject;
-    console.log(this.props)
+    console.log(this.props);
     return (
       <div>
         <div className="flat-list">
           <FlatList flats={allFlats} updateActive={this.updateActive} />
         </div>
         <div className="map-container">
-          <SimpleMap activeObject={activeObject} />
+          <GoogleMapReact defaultCenter={this.center()} defaultZoom={12}>
+            <Marker lat={this.state.activeObject.lat} lng={this.state.activeObject.lng} />
+          </GoogleMapReact>
         </div>
       </div>
     );
